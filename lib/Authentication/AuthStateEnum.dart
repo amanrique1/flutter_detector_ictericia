@@ -1,0 +1,8 @@
+enum AuthState {
+  SUCCESS,
+  WEAK_PASS,
+  EMAIL_TAKEN,
+  USER_NOT_FOUND,
+  WRONG_PASS,
+  UNKNOWN
+}

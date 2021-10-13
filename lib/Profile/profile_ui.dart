@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatefulWidget {
@@ -9,15 +8,16 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   int _selectedPos = 0;
 
+  void _changeButtonColors(int pos) {
+    if (_selectedPos != pos) {
+      setState(() {
+        _selectedPos = pos;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    void _changeButtonColors(int pos) {
-      if (_selectedPos != pos) {
-        setState(() {
-          _selectedPos = pos;
-        });
-      }
-    }
 
     final options = Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -25,12 +25,12 @@ class _ProfileState extends State<Profile> {
         ElevatedButton(
           style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
-                  EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15)),
+                  const EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15)),
               backgroundColor: _selectedPos == 0
                   ? MaterialStateProperty.all<Color>(Colors.pink)
                   : MaterialStateProperty.all<Color>(Colors.white),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
+                  const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))))),
           onPressed: () {
             _changeButtonColors(0);
@@ -46,12 +46,12 @@ class _ProfileState extends State<Profile> {
         ElevatedButton(
           style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
-                  EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15)),
+                  const EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15)),
               backgroundColor: _selectedPos == 1
                   ? MaterialStateProperty.all<Color>(Colors.pink)
                   : MaterialStateProperty.all<Color>(Colors.white),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
+                  const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))))),
           onPressed: () {
             _changeButtonColors(1);
@@ -71,7 +71,7 @@ class _ProfileState extends State<Profile> {
       alignment: Alignment.topCenter,
       child: Column(
         children: [
-          Text(
+          const Text(
             "Configuraciones",
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),

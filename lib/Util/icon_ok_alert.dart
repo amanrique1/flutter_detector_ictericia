@@ -19,13 +19,13 @@ class IconOkAlert extends StatelessWidget {
           clipBehavior: Clip.none, alignment: Alignment.topCenter,
           children: [
             Container(
-              height: 220,
+              height: 250,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
                 child: Column(
                   children: [
-                    Text(text, style: TextStyle(fontSize: 20),),
-                    SizedBox(height: 20,),
+                    Text(text, style: const TextStyle(fontSize: 20),),
+                    const SizedBox(height: 20,),
                     ElevatedButton(onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -33,14 +33,14 @@ class IconOkAlert extends StatelessWidget {
                       primary: color, // background
                       onPrimary: Colors.white, // foreground
                       ),
-                      child: Text('OK'),
+                      child: const Text('OK'),
                     )
                   ],
                 ),
               ),
             ),
             Positioned(
-                top: -60,
+                top: -50,
                 child: CircleAvatar(
                   backgroundColor: color,
                   radius: 60,
