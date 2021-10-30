@@ -9,10 +9,10 @@ class UserDAO {
         toFirestore: (movie, _) => movie.toJson(),
       );
 
-  Future<UserModel?> getUserInfo(String email) async {
+  Future<UserModel?> getUserInfo(String uid) async {
     try {
       return await usersRef
-          .doc(email)
+          .doc(uid)
           .get()
           .then((snapshot) => snapshot.data()!);
     } catch (error) {
@@ -20,7 +20,7 @@ class UserDAO {
     }
   }
 
-  Future<void> createUser(String uid, UserModel userModel) async {
+  Future<void> createUpdateUser(String uid, UserModel userModel) async {
       await usersRef.doc(uid).set(userModel);
   }
 }

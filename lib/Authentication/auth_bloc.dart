@@ -13,7 +13,7 @@ class AuthBloc {
           email: email,
           password: password
       );
-      await userDAO.createUser(credential.user!.uid, userModel);
+      await userDAO.createUpdateUser(credential.user!.uid, userModel);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         return AuthState.WEAK_PASS;
