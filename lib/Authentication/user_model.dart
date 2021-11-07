@@ -28,6 +28,18 @@ class UserModel {
     tonoPiel: json['tonoPiel']! as String
   );
 
+  int get pregnancy => duracionEmbarazo;
+
+  int get babyAge => edadBebe;
+
+  int get motherAge => edadMadre;
+
+  double get babyWeight =>  pesoBebe;
+
+  String get bloodGroup => rh;
+
+  String get skin => tonoPiel;
+
   Map<String, Object?> toJson() {
     return {
       'duracionEmbarazo': duracionEmbarazo,

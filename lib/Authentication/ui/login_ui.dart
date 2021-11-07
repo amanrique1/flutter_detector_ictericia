@@ -21,13 +21,16 @@ class _LogInScreen extends State<LogInScreen> {
 
   Future _login(String email, String password) async {
     final AuthState state = await _blocsManager.login(email, password);
+    // ignore: use_build_context_synchronously
     Navigator.pop(context);
     if (state == AuthState.WRONG_PASS) {
+      // ignore: use_build_context_synchronously
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return IconOkAlert(
-                text: "Contraseña incorrecta, intentelo otra vez",
+            return const IconOkAlert(
+                title: "Contraseña incorrecta",
+                text: "Verifique su clave e intentelo otra vez",
                 color: Colors.red,
                 icon: Icon(
                   Icons.error,
@@ -36,11 +39,13 @@ class _LogInScreen extends State<LogInScreen> {
                 ));
           });
     } else if (state == AuthState.USER_NOT_FOUND) {
+      // ignore: use_build_context_synchronously
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return IconOkAlert(
-                text: "Usuario no encontrado, intentelo otra vez",
+            return const IconOkAlert(
+              title: "Usuario no encontrado",
+                text: "El correo suministrado no aparece registrado, intentelo otra vez",
                 color: Colors.red,
                 icon: Icon(
                   Icons.error,
@@ -49,11 +54,13 @@ class _LogInScreen extends State<LogInScreen> {
                 ));
           });
     } else if (state != AuthState.SUCCESS) {
+      // ignore: use_build_context_synchronously
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return IconOkAlert(
-                text: "Error desconocido, intentelo otra vez",
+            return const IconOkAlert(
+                title: "Error desconocido",
+                text: "Hubo un error inesperado, intentelo otra vez",
                 color: Colors.red,
                 icon: Icon(
                   Icons.error,
@@ -194,7 +201,7 @@ class _LogInScreen extends State<LogInScreen> {
           return _logInContainer('JaDet');
         } else {
           debugPrint(snapshot.data.toString());
-          return HomePage(title: 'JaDet');
+          return const HomePage(title: 'JaDet');
         }
       },
     );

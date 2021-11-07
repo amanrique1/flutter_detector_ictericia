@@ -38,27 +38,27 @@ class _RegisterScreen extends State<RegisterScreen> {
   Future _register(String email, String password, UserModel user) async {
     final AuthState state = await _blocsManager.register(email, password, user);
     Navigator.pop(context);
-    if (state == AuthState.SUCCESS) {
-      Navigator.pop(context);
-    } else if (state == AuthState.EMAIL_TAKEN) {
+    if (state == AuthState.EMAIL_TAKEN) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return IconOkAlert(
+            return const IconOkAlert(
+              title: 'Correo ya registrado',
                 text:
-                    "El correo ya se encuntra registrado, intenta iniciando sesión",
+                    "El correo ya se está en el sistema, intenta iniciando sesión",
                 color: Colors.red,
                 icon: Icon(
                   Icons.error,
                   color: Colors.white,
                   size: 60,
-                ));
+                ),);
           });
     } else if (state == AuthState.WEAK_PASS) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return IconOkAlert(
+            return const IconOkAlert(
+              title: 'Contraseña insegura',
                 text:
                     "La contraseña es muy debil, procure hacerla mas larga o adicionar otro tipo de caracteres",
                 color: Colors.red,
@@ -72,8 +72,9 @@ class _RegisterScreen extends State<RegisterScreen> {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return IconOkAlert(
-                text: "Error desconocido, intentelo otra vez",
+            return const IconOkAlert(
+              title: 'Error en el servidor',
+                text: "Algo raro pasó, intentelo otra vez",
                 color: Colors.red,
                 icon: Icon(
                   Icons.error,
@@ -155,8 +156,9 @@ class _RegisterScreen extends State<RegisterScreen> {
             context: context,
             builder: (BuildContext context) {
               return const IconOkAlert(
+                title: 'Formulario incorrecto',
                   text:
-                      "Formulario incorrecto, por favor revise que haya llenado los campos de ambas ventanas correctamente",
+                      "Por favor revise que haya llenado los campos de ambas ventanas correctamente",
                   color: Colors.red,
                   icon: Icon(
                     Icons.error,
@@ -174,8 +176,9 @@ class _RegisterScreen extends State<RegisterScreen> {
           context: context,
           builder: (BuildContext context) {
             return const IconOkAlert(
-                text:
-                    "Formulario incorrecto, por favor revise que haya llenado todos los campos correctamente",
+                title: 'Formulario incorrecto',
+                  text:
+                      "Por favor revise que haya llenado todos los campos correctamente",
                 color: Colors.red,
                 icon: Icon(
                   Icons.error,
@@ -336,8 +339,7 @@ class _RegisterScreen extends State<RegisterScreen> {
           Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: DropdownButtonFormField(
-                  hint: const Text("RH bebé"),
-                  decoration: const InputDecoration(border: OutlineInputBorder()),
+                  decoration: const InputDecoration(border: OutlineInputBorder(), labelText: "Tipo de sangre"),
                   validator: (value) =>
                       value == null ? "Seleccione una opción" : null,
                   value: _bloodGroup,
@@ -373,7 +375,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                   if (value == null || value.isEmpty) {
                     return 'La edad no puede ser vacia';
                   } else if (int.parse(value) < 0) {
-                    return "El numero de semanas debe ser positivo";
+                    return "La edad debe ser positiva";
                   } else {
                     return null;
                   }
@@ -400,8 +402,7 @@ class _RegisterScreen extends State<RegisterScreen> {
           Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: DropdownButtonFormField(
-                  hint: const Text("Tono de piel"),
-                  decoration: const InputDecoration(border: OutlineInputBorder()),
+                  decoration: const InputDecoration(border: OutlineInputBorder(),labelText: "Tono de piel"),
                   validator: (value) =>
                       value == null ? "Seleccione una opción" : null,
                   value: _skin,

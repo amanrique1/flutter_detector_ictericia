@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 class IconOkAlert extends StatelessWidget {
 
-  const IconOkAlert({Key? key, required this.text, required this.color, required this.icon}) : super(key: key);
+  const IconOkAlert({Key? key, required this.title, required this.text, required this.color, required this.icon}) : super(key: key);
 
+  final String title;
   final String text;
   final Color color;
   final Icon icon;
@@ -12,43 +13,57 @@ class IconOkAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0)
-        ),
-        child: Stack(
-          clipBehavior: Clip.none, alignment: Alignment.topCenter,
-          children: [
-            Container(
-              height: 250,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 70, 10, 10),
-                child: Column(
-                  children: [
-                    Text(text, style: const TextStyle(fontSize: 20),),
-                    const SizedBox(height: 20,),
-                    ElevatedButton(onPressed: () {
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: contentBox(context),
+    );
+  }
+
+  Widget contentBox(BuildContext context){
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.only(left: 20,top: 65, right: 20,bottom: 20
+          ),
+          margin: const EdgeInsets.only(top: 45),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20)
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(title,style: const TextStyle(fontSize: 22,fontWeight: FontWeight.w600),),
+              const SizedBox(height: 15,),
+              Text(text,style: const TextStyle(fontSize: 14),textAlign: TextAlign.center,),
+              const SizedBox(height: 22,),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: ElevatedButton(
+                    onPressed: (){
                       Navigator.of(context).pop();
                     },
-                      style: ElevatedButton.styleFrom(
-                      primary: color, // background
-                      onPrimary: Colors.white, // foreground
-                      ),
-                      child: const Text('OK'),
-                    )
-                  ],
-                ),
+                    child: const Text("OK",style: TextStyle(fontSize: 18),)),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          left: 20,
+            right: 20,
+            child: CircleAvatar(
+              backgroundColor: color,
+              radius: 45,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(45)),
+                  child: icon
               ),
             ),
-            Positioned(
-                top: -50,
-                child: CircleAvatar(
-                  backgroundColor: color,
-                  radius: 60,
-                  child: icon
-                )
-            ),
-          ],
-        )
+        ),
+      ],
     );
   }
 }

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jaundice_image_detector">
    <application
-        android:label="jaundice_image_detector"
+        android:label="JaDet"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

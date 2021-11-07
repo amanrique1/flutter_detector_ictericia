@@ -10,10 +10,10 @@ class ProfileBloc {
 
   Future<AuthState> update(String? email, String? password, UserModel? userModel) async {
     try {
-      if(email != null){
+      if(email != null && email != user.email) {
         await user.updateEmail(email);
       }
-      if(password != null){
+      if(password != null) {
         await user.updatePassword(password);
       }
       if(userModel != null){
@@ -30,9 +30,10 @@ class ProfileBloc {
     }
     return AuthState.SUCCESS;
   }
-  
+
   Future<UserModel?> getUser() async{
     return userDAO.getUserInfo(user.uid);
   }
-  
+
+  String getAuthUserEmail() => user.email ?? "";
 }

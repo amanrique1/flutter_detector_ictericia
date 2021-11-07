@@ -26,8 +26,9 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
             context: context,
             builder: (BuildContext context) {
               return const IconOkAlert(
+                title: "El paciente podría tener ictericia",
                   text:
-                      "El paciente podría tener ictericia, intentelo otra vez o consulte a su médico",
+                      "Intentelo otra vez o consulte a su médico",
                   color: Colors.red,
                   icon: Icon(
                     Icons.warning,
@@ -40,7 +41,8 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
         showDialog(
             context: context,
             builder: (BuildContext context) {
-              return IconOkAlert(
+              return const IconOkAlert(
+                title: "Todo parece bien",
                   text: "El paciente se ve sano",
                   color: Colors.green,
                   icon: Icon(
