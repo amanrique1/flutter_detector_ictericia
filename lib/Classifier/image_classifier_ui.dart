@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:jaundice_image_detector/Classifier/classifier_bloc.dart';
 import 'package:jaundice_image_detector/Util/icon_ok_alert.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ImageSelectorScreen extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
       final bool? response = await classifierService.classifyImage(_image.path);
       Navigator.pop(context);
       if (response == true) {
-        print("------------->Sick<------------");
+        debugPrint("------------->Sick<------------");
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -67,15 +67,37 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
 
   Future _getImage(source) async {
     XFile? image;
-    if (source == GALLERY) {
-      image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.storage,
+    ].request();
+    if (statuses[Permission.camera] == PermissionStatus.granted &&
+        statuses[Permission.storage] == PermissionStatus.granted) {
+      if (source == GALLERY) {
+        image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      } else {
+        image = await ImagePicker().pickImage(source: ImageSource.camera);
+      }
+      if (image != null) {
+        setState(() {
+          _image = File(image!.path);
+        });
+      }
     } else {
-      image = await ImagePicker().pickImage(source: ImageSource.camera);
-    }
-    if (image != null) {
-      setState(() {
-        _image = File(image!.path);
-      });
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const IconOkAlert(
+                title: "Permisos",
+                text:
+                "Para analizar el paciente necesitamos permisos para acceder a la camara y al almacenamiento",
+                color: Colors.red,
+                icon: Icon(
+                  Icons.warning,
+                  color: Colors.white,
+                  size: 60,
+                ));
+          });
     }
   }
 

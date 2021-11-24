@@ -3,6 +3,7 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:jaundice_image_detector/Authentication/AuthStateEnum.dart';
 import 'package:jaundice_image_detector/Authentication/user_model.dart';
 import 'package:jaundice_image_detector/Util/icon_ok_alert.dart';
+import 'package:jaundice_image_detector/Authentication/ui/terms_cond_alert_ui.dart';
 import 'package:jaundice_image_detector/blocs_manager.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -26,6 +27,7 @@ class _RegisterScreen extends State<RegisterScreen> {
   String? _bloodGroup;
   String? _skin;
   bool _motherSelected = true;
+  bool isChecked = false;
 
   void _changeButtonColors(bool pos) {
     if (_motherSelected != pos) {
@@ -44,21 +46,22 @@ class _RegisterScreen extends State<RegisterScreen> {
           builder: (BuildContext context) {
             return const IconOkAlert(
               title: 'Correo ya registrado',
-                text:
-                    "El correo ya se está en el sistema, intenta iniciando sesión",
-                color: Colors.red,
-                icon: Icon(
-                  Icons.error,
-                  color: Colors.white,
-                  size: 60,
-                ),);
+              text:
+                  "El correo ya se está en el sistema, intenta iniciando sesión",
+              color: Colors.red,
+              icon: Icon(
+                Icons.error,
+                color: Colors.white,
+                size: 60,
+              ),
+            );
           });
     } else if (state == AuthState.WEAK_PASS) {
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return const IconOkAlert(
-              title: 'Contraseña insegura',
+                title: 'Contraseña insegura',
                 text:
                     "La contraseña es muy debil, procure hacerla mas larga o adicionar otro tipo de caracteres",
                 color: Colors.red,
@@ -73,7 +76,7 @@ class _RegisterScreen extends State<RegisterScreen> {
           context: context,
           builder: (BuildContext context) {
             return const IconOkAlert(
-              title: 'Error en el servidor',
+                title: 'Error en el servidor',
                 text: "Algo raro pasó, intentelo otra vez",
                 color: Colors.red,
                 icon: Icon(
@@ -127,7 +130,8 @@ class _RegisterScreen extends State<RegisterScreen> {
         children: [
           const CircularProgressIndicator(),
           Container(
-              margin: const EdgeInsets.only(left: 7), child: const Text("Verificando")),
+              margin: const EdgeInsets.only(left: 7),
+              child: const Text("Verificando")),
         ],
       ),
     );
@@ -140,25 +144,48 @@ class _RegisterScreen extends State<RegisterScreen> {
     );
   }
 
-  void validateForms(GlobalKey<FormState> key) {
-    if (key.currentState!.validate()) {
-      UserModel? user;
-      try {
-        user = UserModel(
-            duracionEmbarazo: int.parse(_pregnancyController.text),
-            edadBebe: int.parse(_babyAgeController.text),
-            edadMadre: int.parse(_motherAgeController.text),
-            pesoBebe: double.parse(_babyWeightController.text),
-            rh: _bloodGroup!,
-            tonoPiel: _skin!);
-      } catch (error) {
+  void validateForms() {
+    final GlobalKey<FormState> key =
+        _motherSelected ? _motherFormKey : _babyFormKey;
+    if (isChecked) {
+      if (key.currentState!.validate()) {
+        UserModel? user;
+        try {
+          user = UserModel(
+              duracionEmbarazo: int.parse(_pregnancyController.text),
+              edadBebe: int.parse(_babyAgeController.text),
+              edadMadre: int.parse(_motherAgeController.text),
+              pesoBebe: double.parse(_babyWeightController.text),
+              rh: _bloodGroup!,
+              tonoPiel: _skin!);
+        } catch (error) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const IconOkAlert(
+                    title: 'Formulario incorrecto',
+                    text:
+                    "Por favor revise que haya llenado los campos de ambas ventanas correctamente",
+                    color: Colors.red,
+                    icon: Icon(
+                      Icons.error,
+                      color: Colors.white,
+                      size: 60,
+                    ));
+              });
+        }
+        if (user != null) {
+          showLoaderDialog(context);
+          _register(_emailController.text, _passController.text, user);
+        }
+      } else {
         showDialog(
             context: context,
             builder: (BuildContext context) {
               return const IconOkAlert(
-                title: 'Formulario incorrecto',
+                  title: 'Formulario incorrecto',
                   text:
-                      "Por favor revise que haya llenado los campos de ambas ventanas correctamente",
+                  "Por favor revise que haya llenado todos los campos correctamente",
                   color: Colors.red,
                   icon: Icon(
                     Icons.error,
@@ -167,18 +194,14 @@ class _RegisterScreen extends State<RegisterScreen> {
                   ));
             });
       }
-      if (user != null) {
-        showLoaderDialog(context);
-        _register(_emailController.text, _passController.text, user);
-      }
     } else {
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return const IconOkAlert(
                 title: 'Formulario incorrecto',
-                  text:
-                      "Por favor revise que haya llenado todos los campos correctamente",
+                text:
+                "Debe aceptar los terminos y condiciones para usar la app",
                 color: Colors.red,
                 icon: Icon(
                   Icons.error,
@@ -229,7 +252,8 @@ class _RegisterScreen extends State<RegisterScreen> {
         ElevatedButton(
           style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15)),
+                  const EdgeInsets.only(
+                      left: 30, right: 30, top: 15, bottom: 15)),
               backgroundColor: !_motherSelected
                   ? MaterialStateProperty.all<Color>(Colors.pink)
                   : MaterialStateProperty.all<Color>(Colors.white),
@@ -321,14 +345,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                     return null;
                   }
                 },
-              )),
-          ElevatedButton(
-            onPressed: () {
-              // Validate returns true if the form is valid, or false otherwise.
-              validateForms(_motherFormKey);
-            },
-            child: const Text('Registrarme'),
-          ),
+              ))
         ],
       ),
     );
@@ -339,7 +356,9 @@ class _RegisterScreen extends State<RegisterScreen> {
           Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: DropdownButtonFormField(
-                  decoration: const InputDecoration(border: OutlineInputBorder(), labelText: "Tipo de sangre"),
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Tipo de sangre"),
                   validator: (value) =>
                       value == null ? "Seleccione una opción" : null,
                   value: _bloodGroup,
@@ -402,7 +421,8 @@ class _RegisterScreen extends State<RegisterScreen> {
           Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: DropdownButtonFormField(
-                  decoration: const InputDecoration(border: OutlineInputBorder(),labelText: "Tono de piel"),
+                  decoration: const InputDecoration(
+                      border: OutlineInputBorder(), labelText: "Tono de piel"),
                   validator: (value) =>
                       value == null ? "Seleccione una opción" : null,
                   value: _skin,
@@ -417,15 +437,45 @@ class _RegisterScreen extends State<RegisterScreen> {
                       value: value,
                       child: Text(value),
                     );
-                  }).toList())),
-          ElevatedButton(
-            onPressed: () {
-              // Validate returns true if the form is valid, or false otherwise.
-              validateForms(_babyFormKey);
-            },
-            child: const Text('Registrarme'),
-          )
+                  }).toList()))
         ]));
+
+    final checkbox = Row(children: [
+      Checkbox(
+        value: isChecked,
+        onChanged: (bool? value) {
+          setState(() {
+            isChecked = value!;
+          });
+        },
+      ),
+      const Text("Acepto los "),
+      InkWell(
+        onTap: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return TermsConditionsAlert(
+                    acceptCallback: (){
+                      Navigator.of(context).pop();
+                      setState(() {
+                        isChecked = true;
+                      });
+                    },
+                    denyCallback: (){
+                      Navigator.of(context).pop();
+                      setState(() {
+                        isChecked = false;
+                      });
+                    });
+              });
+        },
+        child: const Text(
+          "terminos y condiciones",
+          style: TextStyle(color: Colors.blue),
+        ),
+      )
+    ]);
 
     return Scaffold(
         appBar: AppBar(
@@ -441,7 +491,17 @@ class _RegisterScreen extends State<RegisterScreen> {
                   padding: const EdgeInsets.only(top: 40.0), child: options),
               Padding(
                   padding: const EdgeInsets.only(top: 40.0),
-                  child: _motherSelected ? motherForm : babyForm)
+                  child: _motherSelected ? motherForm : babyForm),
+              Padding(
+                  padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                  child: checkbox),
+              ElevatedButton(
+                onPressed: () {
+                  // Validate returns true if the form is valid, or false otherwise.
+                  validateForms();
+                },
+                child: const Text('Registrarme'),
+              )
             ]));
   }
 }

@@ -38,6 +38,7 @@ dependencies:
   firebase_crashlytics:
   firebase_auth:
   cloud_firestore:
+  permission_handler:
 
 dev_dependencies:
   flutter_test:

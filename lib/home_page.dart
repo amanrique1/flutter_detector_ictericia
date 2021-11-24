@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jaundice_image_detector/Classifier/image_classifier.dart';
+import 'package:jaundice_image_detector/Classifier/image_classifier_ui.dart';
+import 'package:jaundice_image_detector/Historic/historic_ui.dart';
 import 'package:jaundice_image_detector/Profile/profile_ui.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,13 +27,10 @@ class _HomePageState extends State<HomePage> {
 
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     Profile(),
     ImageSelectorScreen(),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    Historic(),
   ];
 
   void _onItemTapped(int index) {

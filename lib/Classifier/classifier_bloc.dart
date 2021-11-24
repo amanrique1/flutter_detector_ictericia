@@ -28,19 +28,23 @@ class ClassifierService {
           )*/
       );
       print("--------------------->Salí api call<---------------------");
-      if (response.statusCode == 200){
+      if (response.statusCode == 200) {
         final bool result = response.data!['jaundice'] as bool;
         classifierDAO.addClassification(auth.currentUser!.uid, result);
         return result;
-      } else{
+      } else {
         return null;
       }
     } on DioError catch (e) {
       print(e.response);
       return null;
-    } catch (error){
+    } catch (error) {
       print(error);
       return null;
     }
+  }
+
+  Future<Map?> getPredictions() async {
+    return classifierDAO.getPredictions(auth.currentUser!.uid);
   }
 }
