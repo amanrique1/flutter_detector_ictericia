@@ -35,5 +35,9 @@ class ProfileBloc {
     return userDAO.getUserInfo(user.uid);
   }
 
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   String getAuthUserEmail() => user.email ?? "";
 }

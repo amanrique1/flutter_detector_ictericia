@@ -36,7 +36,7 @@ class _ProfileState extends State<Profile> {
   bool _skinEdit = false;
 
   Stream<int> getUserData() async* {
-    UserModel? user = await _bloc.getUser();
+    final UserModel? user = await _bloc.getUser();
     if (user != null) {
       _emailController.text = _bloc.getAuthUserEmail();
       _emailController.selection = TextSelection.fromPosition(TextPosition(offset: _emailController.text.length));
@@ -54,6 +54,10 @@ class _ProfileState extends State<Profile> {
       _skin = user.skin;
       yield 1;
     }
+  }
+
+  void _signOut(){
+    _bloc.signOut();
   }
 
   void _changeButtonColors(bool pos) {
@@ -583,7 +587,7 @@ class _ProfileState extends State<Profile> {
                 validateForms(_babyFormKey);
               },
               child: const Text('Actualizar'),
-            )
+            ),
         ]));
 
     return StreamBuilder(
@@ -606,7 +610,16 @@ class _ProfileState extends State<Profile> {
                     padding: const EdgeInsets.only(top: 20.0), child: options),
                 Padding(
                     padding: const EdgeInsets.only(top: 20.0),
-                    child: _motherSelected ? motherForm : babyForm)
+                    child: _motherSelected ? motherForm : babyForm),
+                Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: ElevatedButton(
+                  onPressed: () {
+                    // Validate returns true if the form is valid, or false otherwise.
+                    _signOut();
+                  },
+                  child: const Text('Cerrar Sesión'),
+                ))
               ]));
         } else {
           return Center(

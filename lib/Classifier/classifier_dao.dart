@@ -9,13 +9,13 @@ class ClassifierDAO {
       return await classifierRef
           .doc(uid)
           .get()
-          .then((snapshot) => snapshot.data()!);
+          .then((snapshot) => snapshot.data() ?? {});
     } catch (error) {
       return null;
     }
   }
 
-  void addClassification(String uid, bool result) async {
+  void addClassification(String uid, bool result) {
       classifierRef.doc(uid).set({
         DateFormat('dd/MM/yyyy hh:mm:ss').format(DateTime.now().toUtc()): result
       },SetOptions(merge: true));

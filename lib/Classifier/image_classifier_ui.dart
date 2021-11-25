@@ -199,6 +199,7 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
                       letterSpacing: 0.6),
                 ),
               )),
+          if(_image.path != "")
           ElevatedButton(
             style: ButtonStyle(
                 padding: MaterialStateProperty.all<EdgeInsets>(
