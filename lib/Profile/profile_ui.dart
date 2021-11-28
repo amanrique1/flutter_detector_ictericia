@@ -39,15 +39,20 @@ class _ProfileState extends State<Profile> {
     final UserModel? user = await _bloc.getUser();
     if (user != null) {
       _emailController.text = _bloc.getAuthUserEmail();
-      _emailController.selection = TextSelection.fromPosition(TextPosition(offset: _emailController.text.length));
+      _emailController.selection = TextSelection.fromPosition(
+          TextPosition(offset: _emailController.text.length));
       _pregnancyController.text = user.pregnancy.toString();
-      _pregnancyController.selection = TextSelection.fromPosition(TextPosition(offset: _pregnancyController.text.length));
+      _pregnancyController.selection = TextSelection.fromPosition(
+          TextPosition(offset: _pregnancyController.text.length));
       _babyAgeController.text = user.babyAge.toString();
-      _babyAgeController.selection = TextSelection.fromPosition(TextPosition(offset: _babyAgeController.text.length));
+      _babyAgeController.selection = TextSelection.fromPosition(
+          TextPosition(offset: _babyAgeController.text.length));
       _motherAgeController.text = user.motherAge.toString();
-      _motherAgeController.selection = TextSelection.fromPosition(TextPosition(offset: _motherAgeController.text.length));
+      _motherAgeController.selection = TextSelection.fromPosition(
+          TextPosition(offset: _motherAgeController.text.length));
       _babyWeightController.text = user.babyWeight.toString();
-      _babyWeightController.selection = TextSelection.fromPosition(TextPosition(offset: _babyWeightController.text.length));
+      _babyWeightController.selection = TextSelection.fromPosition(
+          TextPosition(offset: _babyWeightController.text.length));
       _bloodGroupController.text = user.bloodGroup;
       _skinColorController.text = user.skin;
       _bloodGroup = user.bloodGroup;
@@ -56,7 +61,7 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  void _signOut(){
+  void _signOut() {
     _bloc.signOut();
   }
 
@@ -124,7 +129,9 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  void validateForms(GlobalKey<FormState> key) {
+  void validateForms() {
+    final GlobalKey<FormState> key =
+        _motherSelected ? _motherFormKey : _babyFormKey;
     if (key.currentState!.validate()) {
       UserModel? user;
       try {
@@ -140,7 +147,7 @@ class _ProfileState extends State<Profile> {
             context: context,
             builder: (BuildContext context) {
               return const IconOkAlert(
-                title: "Formulario incorrecto",
+                  title: "Formulario incorrecto",
                   text:
                       "Por favor revise que haya llenado los campos de ambas ventanas correctamente",
                   color: Colors.red,
@@ -153,66 +160,68 @@ class _ProfileState extends State<Profile> {
       }
       if (user != null) {
         showLoaderDialog(context);
-        _bloc.update(_emailEdit ? _emailController.text : null, _passwordEdit ? _passController.text : null, user).then((value) {
+        _bloc
+            .update(_emailEdit ? _emailController.text : null,
+                _passwordEdit ? _passController.text : null, user)
+            .then((value) {
           Navigator.pop(context);
           if (value == AuthState.SUCCESS) {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return const IconOkAlert(title: "Actualizado", text: "La información se modificó satisfactoriamente", icon: Icon(
-                  Icons.check_circle,
-                  color: Colors.white,
-                  size: 60,
+                  return const IconOkAlert(
+                      title: "Actualizado",
+                      text: "La información se modificó satisfactoriamente",
+                      icon: Icon(
+                        Icons.check_circle,
+                        color: Colors.white,
+                        size: 60,
                       ),
                       color: Colors.green);
-                }
-            );
-            }
-          else if (value == AuthState.UNKNOWN) {
+                });
+          } else if (value == AuthState.UNKNOWN) {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return const IconOkAlert(
-                    title: "Error en el sevidor",
-                      text: "Hubo un problema actualizando los datos, intentelo de nuevo",
+                      title: "Error en el sevidor",
+                      text:
+                          "Hubo un problema actualizando los datos, intentelo de nuevo",
                       color: Colors.red,
                       icon: Icon(
-                  Icons.error,
-                  color: Colors.white,
-                  size: 60,
+                        Icons.error,
+                        color: Colors.white,
+                        size: 60,
                       ));
-                }
-            );
+                });
           } else if (value == AuthState.EMAIL_TAKEN) {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return const IconOkAlert(
-                    title: "Email en uso",
+                      title: "Email en uso",
                       text: "Ya existe otra cuenta con ese email",
                       color: Colors.red,
                       icon: Icon(
-                  Icons.error,
-                  color: Colors.white,
-                  size: 60,
+                        Icons.error,
+                        color: Colors.white,
+                        size: 60,
                       ));
-                }
-            );
-          } else if(value == AuthState.WEAK_PASS) {
+                });
+          } else if (value == AuthState.WEAK_PASS) {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return const IconOkAlert(
-                    title: "Contraseña insegura",
+                      title: "Contraseña insegura",
                       text: "La contraseña no es valida, intente con otra",
                       color: Colors.red,
                       icon: Icon(
-                  Icons.error,
-                  color: Colors.white,
-                  size: 60,
+                        Icons.error,
+                        color: Colors.white,
+                        size: 60,
                       ));
-                }
-            );
+                });
           }
         });
       }
@@ -221,7 +230,7 @@ class _ProfileState extends State<Profile> {
           context: context,
           builder: (BuildContext context) {
             return const IconOkAlert(
-              title: "Formulario incorrecto",
+                title: "Formulario incorrecto",
                 text:
                     "Por favor revise que haya llenado todos los campos correctamente",
                 color: Colors.red,
@@ -306,9 +315,9 @@ class _ProfileState extends State<Profile> {
                         : IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () {
-                                setState(() {
-                                  _emailEdit = true;
-                                });
+                              setState(() {
+                                _emailEdit = true;
+                              });
                             },
                           )),
                 validator: (value) {
@@ -325,13 +334,13 @@ class _ProfileState extends State<Profile> {
                       border: const OutlineInputBorder(),
                       labelText: "Contraseña",
                       suffixIcon: IconButton(
-                              icon: const Icon(Icons.cancel_outlined),
-                              onPressed: () {
-                                  setState(() {
-                                    _passwordEdit = false;
-                                  });
-                              },
-                            )),
+                        icon: const Icon(Icons.cancel_outlined),
+                        onPressed: () {
+                          setState(() {
+                            _passwordEdit = false;
+                          });
+                        },
+                      )),
                   validator: (value) {
                     return getPassErrorText(value);
                   },
@@ -363,9 +372,9 @@ class _ProfileState extends State<Profile> {
                         : IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () {
-                                setState(() {
-                                  _motherAgeEdit = true;
-                                });
+                              setState(() {
+                                _motherAgeEdit = true;
+                              });
                             },
                           )),
                 validator: (value) {
@@ -392,9 +401,9 @@ class _ProfileState extends State<Profile> {
                         : IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () {
-                                setState(() {
-                                  _pregnancyEdit = true;
-                                });
+                              setState(() {
+                                _pregnancyEdit = true;
+                              });
                             },
                           )),
                 validator: (value) {
@@ -419,14 +428,22 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(color: Colors.blue),
               ),
             ),
-          if (_passwordEdit || _emailEdit || _motherAgeEdit || _pregnancyEdit || _babyAgeEdit || _babyWeightEdit || _bloodGroupEdit || _skinEdit)
-            ElevatedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                validateForms(_motherFormKey);
-              },
-              child: const Text('Actualizar'),
-            ),
+          Visibility(
+              visible: _passwordEdit ||
+                  _emailEdit ||
+                  _motherAgeEdit ||
+                  _pregnancyEdit ||
+                  _babyAgeEdit ||
+                  _babyWeightEdit ||
+                  _bloodGroupEdit ||
+                  _skinEdit,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Validate returns true if the form is valid, or false otherwise.
+                  validateForms();
+                },
+                child: const Text('Actualizar'),
+              )),
         ],
       ),
     );
@@ -439,13 +456,13 @@ class _ProfileState extends State<Profile> {
           border: const OutlineInputBorder(),
           labelText: "Tipo de sangre",
           suffixIcon: IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () {
-                      setState(() {
-                        _bloodGroupEdit = true;
-                      });
-                  },
-                )),
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              setState(() {
+                _bloodGroupEdit = true;
+              });
+            },
+          )),
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Debe seleccionar un grupo';
@@ -456,7 +473,10 @@ class _ProfileState extends State<Profile> {
     );
 
     final _bloodGroupDown = DropdownButtonFormField(
-        decoration: const InputDecoration(border: OutlineInputBorder(),labelText: "Tipo de sangre",),
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: "Tipo de sangre",
+        ),
         validator: (value) => value == null ? "Seleccione una opción" : null,
         value: _bloodGroup,
         onChanged: (String? newValue) {
@@ -480,13 +500,13 @@ class _ProfileState extends State<Profile> {
           border: const OutlineInputBorder(),
           labelText: "Tono de piel",
           suffixIcon: IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () {
-                      setState(() {
-                        _skinEdit = true;
-                      });
-                  },
-                )),
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              setState(() {
+                _skinEdit = true;
+              });
+            },
+          )),
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'El tono de piel no puede ser vacío';
@@ -497,23 +517,22 @@ class _ProfileState extends State<Profile> {
     );
 
     final _skinColorDown = DropdownButtonFormField(
-                  decoration:
-                      const InputDecoration(border: OutlineInputBorder(),labelText: "Tono de piel"),
-                  validator: (value) =>
-                      value == null ? "Seleccione una opción" : null,
-                  value: _skin,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _skin = newValue;
-                    });
-                  },
-                  items: <String>['Claro', 'Medio', 'Oscuro']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList());
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(), labelText: "Tono de piel"),
+        validator: (value) => value == null ? "Seleccione una opción" : null,
+        value: _skin,
+        onChanged: (String? newValue) {
+          setState(() {
+            _skin = newValue;
+          });
+        },
+        items: <String>['Claro', 'Medio', 'Oscuro']
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList());
 
     final babyForm = Form(
         key: _babyFormKey,
@@ -535,9 +554,9 @@ class _ProfileState extends State<Profile> {
                         : IconButton(
                             icon: const Icon(Icons.edit),
                             onPressed: () {
-                                setState(() {
-                                  _babyAgeEdit = true;
-                                });
+                              setState(() {
+                                _babyAgeEdit = true;
+                              });
                             },
                           )),
                 validator: (value) {
@@ -557,16 +576,16 @@ class _ProfileState extends State<Profile> {
                 controller: _babyWeightController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: "Peso del bebé (gramos)",
-                    suffixIcon: IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                            setState(() {
-                              _babyWeightEdit = true;
-                            });
-                        }),
-                    ),
+                  border: const OutlineInputBorder(),
+                  labelText: "Peso del bebé (gramos)",
+                  suffixIcon: IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () {
+                        setState(() {
+                          _babyWeightEdit = true;
+                        });
+                      }),
+                ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'El peso no puede ser vacio';
@@ -580,14 +599,6 @@ class _ProfileState extends State<Profile> {
           Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: _skinEdit ? _skinColorDown : _skinColorInput),
-          if (_passwordEdit || _emailEdit || _motherAgeEdit || _pregnancyEdit || _babyAgeEdit || _babyWeightEdit || _bloodGroupEdit || _skinEdit)
-            ElevatedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                validateForms(_babyFormKey);
-              },
-              child: const Text('Actualizar'),
-            ),
         ]));
 
     return StreamBuilder(
@@ -595,32 +606,48 @@ class _ProfileState extends State<Profile> {
       builder: (context, stream) {
         if (stream.hasData) {
           return Padding(
-            padding: const EdgeInsets.only(left: 40.0, right: 40.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Center(
-                    child: Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                  child: Text("Configuraciones",
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-                )),
-                Padding(
-                    padding: const EdgeInsets.only(top: 20.0), child: options),
-                Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: _motherSelected ? motherForm : babyForm),
-                Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ElevatedButton(
-                  onPressed: () {
-                    // Validate returns true if the form is valid, or false otherwise.
-                    _signOut();
-                  },
-                  child: const Text('Cerrar Sesión'),
-                ))
-              ]));
+              padding: const EdgeInsets.only(left: 40.0, right: 40.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Center(
+                        child: Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                      child: Text("Configuraciones",
+                          style: TextStyle(
+                              fontSize: 32, fontWeight: FontWeight.bold)),
+                    )),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: options),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: _motherSelected ? motherForm : babyForm),
+                    if (_passwordEdit ||
+                        _emailEdit ||
+                        _motherAgeEdit ||
+                        _pregnancyEdit ||
+                        _babyAgeEdit ||
+                        _babyWeightEdit ||
+                        _bloodGroupEdit ||
+                        _skinEdit)
+                      ElevatedButton(
+                        onPressed: () {
+                          // Validate returns true if the form is valid, or false otherwise.
+                          validateForms();
+                        },
+                        child: const Text('Actualizar'),
+                      ),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Validate returns true if the form is valid, or false otherwise.
+                            _signOut();
+                          },
+                          child: const Text('Cerrar Sesión'),
+                        ))
+                  ]));
         } else {
           return Center(
               child: Row(
