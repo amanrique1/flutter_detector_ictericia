@@ -117,9 +117,9 @@ class _LogInScreen extends State<LogInScreen> {
 
   Widget _logInContainer(String title) {
     const Widget image = SizedBox(
-      width: 170,
-      height: 170,
-      child: Image(image: AssetImage('assets/img/login.png')),
+      width: 250,
+      height: 230,
+      child: Image(image: AssetImage('assets/img/logojadet.png')),
     );
 
     final Widget form = Form(
@@ -135,7 +135,7 @@ class _LogInScreen extends State<LogInScreen> {
             },
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: TextFormField(
                 controller: _passController,
                 obscureText: true,
@@ -158,6 +158,16 @@ class _LogInScreen extends State<LogInScreen> {
             ),
           ),
           ElevatedButton(
+            style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        const EdgeInsets.only(
+                            left: 30, right: 30, top: 10, bottom: 10)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.indigo.shade200),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))))),
             onPressed: () {
               // Validate returns true if the form is valid, or false otherwise.
               if (_formKey.currentState!.validate()) {
@@ -176,6 +186,7 @@ class _LogInScreen extends State<LogInScreen> {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Center(child: Text(title)),
+          backgroundColor: Colors.indigo.shade200, 
         ),
         body: Container(
             margin: const EdgeInsets.only(left: 40.0, right: 40.0),

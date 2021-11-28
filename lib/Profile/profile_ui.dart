@@ -247,7 +247,7 @@ class _ProfileState extends State<Profile> {
                       const EdgeInsets.only(
                           left: 30, right: 30, top: 15, bottom: 15)),
                   backgroundColor: _motherSelected
-                      ? MaterialStateProperty.all<Color>(Colors.pink)
+                      ? MaterialStateProperty.all<Color>(Colors.blue.shade300)
                       : MaterialStateProperty.all<Color>(Colors.white),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       const RoundedRectangleBorder(
@@ -259,7 +259,7 @@ class _ProfileState extends State<Profile> {
               child: Text(
                 'Madre',
                 style: TextStyle(
-                    color: _motherSelected ? Colors.white : Colors.pink,
+                    color: _motherSelected ? Colors.white : Colors.blue.shade400,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.6),
               ),
@@ -270,7 +270,7 @@ class _ProfileState extends State<Profile> {
                   const EdgeInsets.only(
                       left: 30, right: 30, top: 15, bottom: 15)),
               backgroundColor: !_motherSelected
-                  ? MaterialStateProperty.all<Color>(Colors.pink)
+                  ? MaterialStateProperty.all<Color>(Colors.blue.shade300)
                   : MaterialStateProperty.all<Color>(Colors.white),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   const RoundedRectangleBorder(
@@ -281,13 +281,19 @@ class _ProfileState extends State<Profile> {
           child: Text(
             'Paciente',
             style: TextStyle(
-                color: !_motherSelected ? Colors.white : Colors.pink,
+                color: !_motherSelected ? Colors.white : Colors.blue.shade400,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.6),
           ),
         )
       ],
+      
+
+      
     );
+
+    
+    
 
     final motherForm = Form(
       key: _motherFormKey,
@@ -614,6 +620,17 @@ class _ProfileState extends State<Profile> {
                 Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: ElevatedButton(
+                      style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        const EdgeInsets.only(
+                            left: 30, right: 30, top: 15, bottom: 15)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.indigo.shade200),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))))),
+
                   onPressed: () {
                     // Validate returns true if the form is valid, or false otherwise.
                     _signOut();
@@ -633,6 +650,10 @@ class _ProfileState extends State<Profile> {
             ],
           ));
         }
+
+        //Theme(
+
+        //);
       },
     );
   }

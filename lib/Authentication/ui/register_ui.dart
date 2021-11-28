@@ -77,7 +77,7 @@ class _RegisterScreen extends State<RegisterScreen> {
           builder: (BuildContext context) {
             return const IconOkAlert(
                 title: 'Error en el servidor',
-                text: "Algo raro pasó, intentelo otra vez",
+                text: "Algo raro pasó, inténtelo otra vez",
                 color: Colors.red,
                 icon: Icon(
                   Icons.error,
@@ -219,6 +219,7 @@ class _RegisterScreen extends State<RegisterScreen> {
       width: 140,
       height: 140,
       child: const Image(image: AssetImage('assets/img/register.png')),
+      padding: const EdgeInsets.only(top: 35.0 ),
     );
 
     final options = Row(
@@ -232,7 +233,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                       const EdgeInsets.only(
                           left: 30, right: 30, top: 15, bottom: 15)),
                   backgroundColor: _motherSelected
-                      ? MaterialStateProperty.all<Color>(Colors.pink)
+                      ? MaterialStateProperty.all<Color>(Colors.blue.shade300)
                       : MaterialStateProperty.all<Color>(Colors.white),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       const RoundedRectangleBorder(
@@ -244,7 +245,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               child: Text(
                 'Madre',
                 style: TextStyle(
-                    color: _motherSelected ? Colors.white : Colors.pink,
+                    color: _motherSelected ? Colors.white : Colors.blue.shade400,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.6),
               ),
@@ -255,7 +256,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                   const EdgeInsets.only(
                       left: 30, right: 30, top: 15, bottom: 15)),
               backgroundColor: !_motherSelected
-                  ? MaterialStateProperty.all<Color>(Colors.pink)
+                  ? MaterialStateProperty.all<Color>(Colors.blue.shade300)
                   : MaterialStateProperty.all<Color>(Colors.white),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   const RoundedRectangleBorder(
@@ -266,7 +267,7 @@ class _RegisterScreen extends State<RegisterScreen> {
           child: Text(
             'Paciente',
             style: TextStyle(
-                color: !_motherSelected ? Colors.white : Colors.pink,
+                color: !_motherSelected ? Colors.white : Colors.blue.shade400,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.6),
           ),
@@ -481,7 +482,9 @@ class _RegisterScreen extends State<RegisterScreen> {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: const Center(child: Text("BiliApp")),
+          title: const Center(child: Text("JaDet")),
+          backgroundColor: Colors.indigo.shade200, 
+
         ),
         body: ListView(
             padding: const EdgeInsets.only(left: 40.0, right: 40.0),
@@ -496,6 +499,18 @@ class _RegisterScreen extends State<RegisterScreen> {
                   padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                   child: checkbox),
               ElevatedButton(
+
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        const EdgeInsets.only(
+                            left: 30, right: 30, top: 15, bottom: 15)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.indigo.shade200),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))))),
+
                 onPressed: () {
                   // Validate returns true if the form is valid, or false otherwise.
                   validateForms();

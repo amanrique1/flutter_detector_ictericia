@@ -100,6 +100,16 @@ class TermsConditionsAlert extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.only(top: 15.0,right: 15.0),
                       child: ElevatedButton(
+                         style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        const EdgeInsets.only(
+                            left: 30, right: 30, top: 15, bottom: 15)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.indigo.shade200),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8.0))))),
                           onPressed: denyCallback,
                           child: const Text(
                             "Rechazar",
@@ -108,10 +118,22 @@ class TermsConditionsAlert extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.only(top: 15.0),
                       child: ElevatedButton(
+                         style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        const EdgeInsets.only(
+                            left: 30, right: 30, top: 15, bottom: 15)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue.shade300),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8.0))))),
+
                       onPressed: acceptCallback,
                       child: const Text(
                         "Aceptar",
                         style: TextStyle(fontSize: 18),
+            
                       )))
                 ]),
               ),

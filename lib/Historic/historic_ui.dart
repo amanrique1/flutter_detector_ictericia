@@ -37,7 +37,7 @@ class Historic extends StatelessWidget {
             );
           } else {
             return const Center(
-                child: Text("Aún no tienes clasificaciones, animate a hacerlo", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),textAlign: TextAlign.center,));
+                child: Text("Aún no tienes clasificaciones, anímate a hacerlo", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),textAlign: TextAlign.center,));
           }
         } else {
           return Center(

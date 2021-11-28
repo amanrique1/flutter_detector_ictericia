@@ -26,9 +26,9 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
             context: context,
             builder: (BuildContext context) {
               return const IconOkAlert(
-                title: "El paciente podría tener ictericia",
+                title: "¡Atención!",
                   text:
-                      "Intentelo otra vez o consulte a su médico",
+                      "Tu bebé presenta ciertos signos que podrían indicar la presencia de ictericia. \n Inténtalo de nuevo y en caso de que el resultado sea el mismo, consulta inmediatamente a tu médico",
                   color: Colors.red,
                   icon: Icon(
                     Icons.warning,
@@ -43,7 +43,7 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
             builder: (BuildContext context) {
               return const IconOkAlert(
                 title: "Todo parece bien",
-                  text: "El paciente se ve sano",
+                  text: "Aparentemente, \n tu bebé se ve sano.",
                   color: Colors.green,
                   icon: Icon(
                     Icons.thumb_up,
@@ -53,7 +53,7 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
             });
       } else {
         const snackBar = SnackBar(
-            content: Text('Ocurrió un error inesperado intentelo nuevamente')
+            content: Text('Ocurrió un error inesperado inténtelo nuevamente')
         );
 
         // Find the ScaffoldMessenger in the widget tree
@@ -90,7 +90,7 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
             return const IconOkAlert(
                 title: "Permisos",
                 text:
-                "Para analizar el paciente necesitamos permisos para acceder a la camara y al almacenamiento",
+                "Para analizar el paciente necesitamos permisos para acceder a la cámara y al almacenamiento",
                 color: Colors.red,
                 icon: Icon(
                   Icons.warning,
@@ -131,11 +131,12 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
 
   void showLoaderDialog(BuildContext context) {
     final AlertDialog alert = AlertDialog(
+      title:  const Text("Analizando"),
       content: Row(
         children: [
           const CircularProgressIndicator(),
           Container(
-              margin: const EdgeInsets.only(left: 7), child: const Text("Analizando")),
+              margin: const EdgeInsets.only(left: 7), child: const Text(" JaDet no es una aplicación \n de diagnóstico. Si deseas \n un diagnóstico de mayor \n seguridad y confianza, \n consulta a tu médico.")),
         ],
       ),
     );
@@ -183,7 +184,7 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
                         const EdgeInsets.only(
                             left: 30, right: 30, top: 15, bottom: 15)),
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.pink),
+                        MaterialStateProperty.all<Color>(Colors.indigo.shade200),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         const RoundedRectangleBorder(
                             borderRadius:
@@ -204,7 +205,7 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
             style: ButtonStyle(
                 padding: MaterialStateProperty.all<EdgeInsets>(
                     const EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 15)),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.pink),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.orange.shade300),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     const RoundedRectangleBorder(
                         borderRadius:
@@ -250,4 +251,6 @@ class _ImageSelectorScreenState extends State<ImageSelectorScreen> {
       ),
     );
   }
+
+  
 }
