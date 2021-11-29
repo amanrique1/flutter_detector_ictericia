@@ -19,7 +19,7 @@ class ClassifierService {
           {"file": await MultipartFile.fromFile(filePath, filename: "dp")});
       print("--------------------->Entré api call<---------------------");
       final Response response = await Dio().post(
-        "https://jaundice-detector.herokuapp.com/classify",
+        "http://54.184.96.247:8000/classify",
         data: formData,
         /*options: Options(
               headers: <String, String>{
