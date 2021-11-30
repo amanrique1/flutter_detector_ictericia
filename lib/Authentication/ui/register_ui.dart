@@ -201,7 +201,7 @@ class _RegisterScreen extends State<RegisterScreen> {
             return const IconOkAlert(
                 title: 'Formulario incorrecto',
                 text:
-                "Debe aceptar los terminos y condiciones para usar la app",
+                "Debe aceptar los términos y condiciones para usar la app",
                 color: Colors.red,
                 icon: Icon(
                   Icons.error,
@@ -472,7 +472,7 @@ class _RegisterScreen extends State<RegisterScreen> {
               });
         },
         child: const Text(
-          "terminos y condiciones",
+          "términos y condiciones",
           style: TextStyle(color: Colors.blue),
         ),
       )

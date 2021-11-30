@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.indigo.shade200,
         onTap: _onItemTapped,
       ),// This trailing comma makes auto-formatting nicer for build methods.
     );

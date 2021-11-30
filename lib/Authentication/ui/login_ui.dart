@@ -151,7 +151,7 @@ class _LogInScreen extends State<LogInScreen> {
                   MaterialPageRoute(builder: (context) => RegisterScreen()));
             },
             child: const Text(
-                "¿No tienes una cuenta? Creala ahora",
+                "¿No tienes una cuenta? Créala ahora",
               style: TextStyle(
                 color:Colors.blue
               ),
@@ -197,7 +197,7 @@ class _LogInScreen extends State<LogInScreen> {
                 children: [
                   image,
                   Padding(
-                      padding: const EdgeInsets.only(top: 40.0), child: form)
+                      padding: const EdgeInsets.only(top: 30.0), child: form)
                 ])));
   }
 
