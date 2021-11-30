@@ -335,7 +335,6 @@ class _ProfileState extends State<Profile> {
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.6),
           ),
-          
         )
       ],
 
