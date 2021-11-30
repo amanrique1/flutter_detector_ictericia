@@ -135,14 +135,14 @@ class _ProfileState extends State<Profile> {
     //final GlobalKey<FormState> key = 
         //_motherSelected ? _motherFormKey : _babyFormKey: price;
     
-    final GlobalKey<FormState> key = GlobalKey<FormState>();
+    GlobalKey<FormState> key = GlobalKey<FormState>();
 
     if (_motherSelected == 0){
-      final GlobalKey<FormState> key = _motherFormKey;
+      key = _motherFormKey;
     }
 
     else if (_motherSelected == 1){
-      final GlobalKey<FormState> key = _babyFormKey;
+     key = _babyFormKey;
     }
 
     if (key.currentState!.validate()) {
