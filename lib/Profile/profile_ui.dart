@@ -268,7 +268,8 @@ class _ProfileState extends State<Profile> {
               child: Text(
                 'Madre',
                 style: TextStyle(
-                    color: _motherSelected ? Colors.white : Colors.blue.shade400,
+                    color:
+                        _motherSelected ? Colors.white : Colors.blue.shade400,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.6),
               ),
@@ -296,13 +297,7 @@ class _ProfileState extends State<Profile> {
           ),
         )
       ],
-      
-
-      
     );
-
-    
-    
 
     final motherForm = Form(
       key: _motherFormKey,
