@@ -478,22 +478,6 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(color: Colors.blue),
               ),
             ),
-          Visibility(
-              visible: _passwordEdit ||
-                  _emailEdit ||
-                  _motherAgeEdit ||
-                  _pregnancyEdit ||
-                  _babyAgeEdit ||
-                  _babyWeightEdit ||
-                  _bloodGroupEdit ||
-                  _skinEdit,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Validate returns true if the form is valid, or false otherwise.
-                  validateForms();
-                },
-                child: const Text('Actualizar'),
-              )),
         ],
       ),
     );
