@@ -105,7 +105,7 @@ class TermsConditionsAlert extends StatelessWidget {
                         const EdgeInsets.only(
                             left: 30, right: 30, top: 15, bottom: 15)),
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.indigo.shade200),
+                        MaterialStateProperty.all<Color>(Colors.blue.shade300),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         const RoundedRectangleBorder(
                             borderRadius:
@@ -123,7 +123,7 @@ class TermsConditionsAlert extends StatelessWidget {
                         const EdgeInsets.only(
                             left: 30, right: 30, top: 15, bottom: 15)),
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue.shade300),
+                        MaterialStateProperty.all<Color>(Colors.blue.shade200),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         const RoundedRectangleBorder(
                             borderRadius:

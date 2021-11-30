@@ -13,6 +13,7 @@ class _ProfileState extends State<Profile> {
   final ProfileBloc _bloc = ProfileBloc();
   final _motherFormKey = GlobalKey<FormState>();
   final _babyFormKey = GlobalKey<FormState>();
+  final _priceFormKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   final TextEditingController _confPassController = TextEditingController();
@@ -25,7 +26,8 @@ class _ProfileState extends State<Profile> {
 
   String? _bloodGroup;
   String? _skin;
-  bool _motherSelected = true;
+  //bool _motherSelected = true;
+  int _motherSelected = 0;
   bool _emailEdit = false;
   bool _passwordEdit = false;
   bool _pregnancyEdit = false;
@@ -65,7 +67,7 @@ class _ProfileState extends State<Profile> {
     _bloc.signOut();
   }
 
-  void _changeButtonColors(bool pos) {
+  void _changeButtonColors(int pos) {
     if (_motherSelected != pos) {
       setState(() {
         _motherSelected = pos;
@@ -130,8 +132,19 @@ class _ProfileState extends State<Profile> {
   }
 
   void validateForms() {
-    final GlobalKey<FormState> key =
-        _motherSelected ? _motherFormKey : _babyFormKey;
+    //final GlobalKey<FormState> key = 
+        //_motherSelected ? _motherFormKey : _babyFormKey: price;
+    
+    final GlobalKey<FormState> key = GlobalKey<FormState>();
+
+    if (_motherSelected == 0){
+      final GlobalKey<FormState> key = _motherFormKey;
+    }
+
+    else if (_motherSelected == 1){
+      final GlobalKey<FormState> key = _babyFormKey;
+    }
+
     if (key.currentState!.validate()) {
       UserModel? user;
       try {
@@ -254,8 +267,8 @@ class _ProfileState extends State<Profile> {
               style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsets>(
                       const EdgeInsets.only(
-                          left: 30, right: 30, top: 15, bottom: 15)),
-                  backgroundColor: _motherSelected
+                          left: 20, right: 20, top: 15, bottom: 15)),
+                  backgroundColor: _motherSelected == 0
                       ? MaterialStateProperty.all<Color>(Colors.blue.shade300)
                       : MaterialStateProperty.all<Color>(Colors.white),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -263,41 +276,76 @@ class _ProfileState extends State<Profile> {
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))))),
               onPressed: () {
-                _changeButtonColors(true);
+                _changeButtonColors(0);
               },
               child: Text(
                 'Madre',
                 style: TextStyle(
-                    color:
-                        _motherSelected ? Colors.white : Colors.blue.shade400,
+                    color: _motherSelected == 0 ? Colors.white : Colors.blue.shade400,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.6),
               ),
             )),
+       
+        Padding(padding: const EdgeInsets.only(right: 10.0),
+        child: ElevatedButton(
+              style: ButtonStyle(
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.only(
+                          left: 20, right: 20, top: 15, bottom: 15)),
+                  backgroundColor: _motherSelected == 1
+                      ? MaterialStateProperty.all<Color>(Colors.blue.shade300)
+                      : MaterialStateProperty.all<Color>(Colors.white),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))))),
+              onPressed: () {
+                _changeButtonColors(1);
+              },
+              child: Text(
+            'Paciente',
+            style: TextStyle(
+                color: _motherSelected == 1 ? Colors.white : Colors.blue.shade400,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0.6),
+              ),
+            )),
+
+
+        
         ElevatedButton(
           style: ButtonStyle(
               padding: MaterialStateProperty.all<EdgeInsets>(
                   const EdgeInsets.only(
-                      left: 30, right: 30, top: 15, bottom: 15)),
-              backgroundColor: !_motherSelected
+                      left: 20, right: 20, top: 15, bottom: 15)),
+              backgroundColor: _motherSelected == 2
                   ? MaterialStateProperty.all<Color>(Colors.blue.shade300)
                   : MaterialStateProperty.all<Color>(Colors.white),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))))),
           onPressed: () {
-            _changeButtonColors(false);
+            _changeButtonColors(2);
           },
           child: Text(
-            'Paciente',
+            'Planes',
             style: TextStyle(
-                color: !_motherSelected ? Colors.white : Colors.blue.shade400,
+                color: _motherSelected==2 ? Colors.white : Colors.blue.shade400,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 0.6),
           ),
         )
       ],
+
     );
+
+
+
+    final price_image = SizedBox(
+      width: 370,
+      height: 370,
+      child: Image(image: AssetImage('assets/img/planes.png')));
 
     final motherForm = Form(
       key: _motherFormKey,
@@ -425,7 +473,7 @@ class _ProfileState extends State<Profile> {
                 });
               },
               child: const Text(
-                "¿Olvidaste tu contraseña? Cambiala",
+                "¿Olvidaste tu contraseña? Cámbiala",
                 style: TextStyle(color: Colors.blue),
               ),
             ),
@@ -607,7 +655,7 @@ class _ProfileState extends State<Profile> {
                         child: options),
                     Padding(
                         padding: const EdgeInsets.only(top: 20.0),
-                        child: _motherSelected ? motherForm : babyForm),
+                        child: _motherSelected == 0 ? motherForm : _motherSelected == 1 ? babyForm: price_image),
                     if (_passwordEdit ||
                         _emailEdit ||
                         _motherAgeEdit ||
@@ -626,6 +674,18 @@ class _ProfileState extends State<Profile> {
                     Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: ElevatedButton(
+                          style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        const EdgeInsets.only(
+                            left: 30, right: 30, top: 10, bottom: 10)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.indigo.shade200),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0))))),
+
+
                           onPressed: () {
                             // Validate returns true if the form is valid, or false otherwise.
                             _signOut();

@@ -51,7 +51,7 @@ class Historic extends StatelessWidget {
                   children: <Widget>[
                     ListTile(
                       title: Text(key),
-                      subtitle: Text(item ? "Ictericia" : "Sano"),
+                      subtitle: Text(item ? "Presunción: Ictericia" : "Presunción: No Ictericia"),
                     ),
                     const Divider(),
                   ],

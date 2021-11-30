@@ -24,6 +24,17 @@ class CommonQuestionsScreen extends StatelessWidget {
         style:
         TextStyle(fontSize: 22, fontWeight: FontWeight.w600)
       )),
+      Text(
+        "¿Por qué la piel de mi bebé se ve amarilla?" ,
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        textAlign: TextAlign.left,
+      ),
+      const Padding(padding: EdgeInsets.only(top:5,left: 15,bottom: 10),
+          child: Text(
+        "\u2022 Es muy probable que tu bebé presente una coloración amarilla en su piel, ojos y mucosas si tiene pocos días de nacido o si es prematuro. Es posible que esta coloración esté o no esté asociada con una patología. Para el primer caso, hay diferentes condiciones o enfermedades que pueden tornar amarilla la piel de tu bebé, como pueden ser: hiperbilirrubinemia, incompatibilidad entre el grupo sanguíneo del bebé y la madre, infección en la sangre del bebé, carencia de enzimas, nacimiento pretérmino, poca ingesta de leche materna, problemas genéticos e incluso infecciones bacterianas como la hepatitis o la cirrosis. Sin embargo, JaDet solo maneja una presunción de diagnóstico para ictericia causada por hiperbilirrubinemia. Si deseas descartar alguna otra enfermedad o condición, consulta a tu médico. ",
+        style: TextStyle(fontSize: 14),
+        textAlign: TextAlign.justify,
+      )),
     Text(
         "¿Qué hacer en caso que el diagnóstico de mi bebé sea ictericia?",
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -64,7 +75,7 @@ class CommonQuestionsScreen extends StatelessWidget {
       ),
         const Padding(padding: EdgeInsets.only(top:5,left: 15,bottom: 10),
             child: Text(
-        "\u2022 JaDet tiene una precisión en su presunción de diagnóstico de un 65-70%.",
+        "\u2022 JaDet tiene una precisión en su presunción de diagnóstico de un 85-90%.",
         style: TextStyle(fontSize: 14),
         textAlign: TextAlign.justify,
       )),
@@ -80,7 +91,7 @@ class CommonQuestionsScreen extends StatelessWidget {
         textAlign: TextAlign.justify,
       )),
       const Text(
-        "Si el diagnóstico de mi bebé resulta en ictericia, pero no se ve amarillo ¿qué debo hacer?",
+        "Si el diagnóstico de mi bebé resulta en ictericia pero no se ve amarillo, ¿qué debo hacer?",
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         textAlign: TextAlign.left,
       ),
