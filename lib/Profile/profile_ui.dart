@@ -130,9 +130,6 @@ class _ProfileState extends State<Profile> {
   }
 
   void validateForms() {
-    //final GlobalKey<FormState> key =
-    //_motherSelected ? _motherFormKey : _babyFormKey: price;
-
     GlobalKey<FormState> key = GlobalKey<FormState>();
 
     if (_motherSelected == 0) {
