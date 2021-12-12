@@ -6,14 +6,14 @@ import 'common_questions_ui.dart';
 class Historic extends StatelessWidget {
   final ClassifierService _bloc = ClassifierService();
 
-  Stream<Map?> getUserData() async* {
-    yield await _bloc.getPredictions();
+  Future<Map?> getUserData() async {
+    return await _bloc.getPredictions();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Map?>(
-      stream: getUserData(),
+    return FutureBuilder<Map?>(
+      future: getUserData(),
       builder: (context, stream) {
         if (stream.hasData) {
           if (stream.data!.isNotEmpty) {
