@@ -163,7 +163,7 @@ class _LogInScreen extends State<LogInScreen> {
                         const EdgeInsets.only(
                             left: 30, right: 30, top: 10, bottom: 10)),
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.indigo.shade200),
+                        MaterialStateProperty.all<Color>(Theme.of(context).primaryColor),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         const RoundedRectangleBorder(
                             borderRadius:
@@ -186,7 +186,7 @@ class _LogInScreen extends State<LogInScreen> {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Center(child: Text(title)),
-          backgroundColor: Colors.indigo.shade200, 
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Container(
             margin: const EdgeInsets.only(left: 40.0, right: 40.0),
